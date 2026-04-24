@@ -1,7 +1,5 @@
 
-# 🐚 Day 10 - Project
-
-## System Monitoring Script
+##  Project-2    System Monitoring Script
 
 ```bash
 #!/bin/bash
