@@ -1,8 +1,8 @@
 
-#  Project 1 - Disk Alert Script (80% Alert)
+# 🚀 Project 1 - Service Monitor & Auto Restart Script
 
 ## 📌 Overview
-This script monitors disk usage and alerts when any partition exceeds the defined threshold (80%).
+This script monitors a service (e.g., nginx) and automatically restarts it if it is found to be down.
 
 ---
 
@@ -11,17 +11,17 @@ This script monitors disk usage and alerts when any partition exceeds the define
 ```bash
 #!/bin/bash
 
-THRESHOLD=80
+SERVICE="nginx"
 
-df -h | grep -vE '^Filesystem|tmpfs|cdrom' | while read line
-do
-  usage=$(echo $line | awk '{print $5}' | sed 's/%//g')
-  partition=$(echo $line | awk '{print $1}')
+status=$(systemctl is-active $SERVICE)
 
-  if [ $usage -ge $THRESHOLD ]; then
-    echo "⚠️ Disk usage on $partition is ${usage}% (Above ${THRESHOLD}%)"
-  fi
-done
+if [ "$status" != "active" ]; then
+  echo "⚠️ $SERVICE is down. Restarting..."
+  systemctl start $SERVICE
+  echo "✅ $SERVICE restarted"
+else
+  echo "✅ $SERVICE is running"
+fi
 ````
 
 ---
@@ -30,56 +30,73 @@ done
 
 1. Create script file:
 
-```bash
-nano disk-alert.sh
+```bash id="s3_1"
+nano service-monitor.sh
 ```
 
 2. Paste the script and save.
 
 3. Make it executable:
 
-```bash
-chmod +x disk-alert.sh
+```bash id="s3_2"
+chmod +x service-monitor.sh
 ```
 
-4. Run the script:
+4. Run manually:
 
-```bash
-./disk-alert.sh
+```bash id="s3_3"
+./service-monitor.sh
 ```
+
+---
+
+## ⏰ Automation with Cron
+
+Open crontab:
+
+```bash id="s3_4"
+crontab -e
+```
+
+Add this line:
+
+```bash id="s3_5"
+*/5 * * * * /home/ubuntu/service-monitor.sh
+```
+
+👉 This will check service every **5 minutes**
 
 ---
 
 ## 💡 Explanation
 
-* `df -h` → disk usage nikalta hai
-* `awk '{print $5}'` → usage column (like 85%)
-* `sed 's/%//g'` → % remove
-* `if usage >= 80` → alert trigger
+* `systemctl is-active` → checks service status
+* If not active → restart service
+* `systemctl start` → starts the service
+* Cron → automates monitoring
 
 ---
 
 ## 🧠 Real Use Case
 
-👉 Production server me disk full hone se service down ho sakti hai
-👉 Ye script early alert deta hai
+👉 Production me service crash ho sakti hai
+👉 Manual monitoring possible nahi hota
+👉 Ye script auto-recovery provide karta hai
 
 ---
 
 ## 🎯 Interview Questions
 
-1. How do you check disk usage in Linux?
-2. What command is used to monitor disk space?
-3. How do you automate disk monitoring?
-4. What will you do if disk usage crosses 80%?
+1. How do you check service status in Linux?
+2. What is `systemctl` used for?
+3. How do you restart a service automatically?
+4. What will you do if a service goes down?
 
 ---
 
 ## 🚀 Future Improvements
 
-* Send email alert 📧
-* Integrate with monitoring tools
+* Send alert (Email/Slack) 📧
+* Monitor multiple services
 * Add logging system
-
-
 
