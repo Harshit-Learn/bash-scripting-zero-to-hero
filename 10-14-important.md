@@ -1,5 +1,5 @@
 
-# 🐧 Day 11 - Arguments & Positional Parameters
+# 🐧 Day 10 - Arguments & Positional Parameters
 
 ````md id="d11"
 # 🐚 Day 11 - Arguments & Positional Parameters
@@ -45,7 +45,7 @@ Run:
 
 ---
 
-# 🐧 Day 12 - Exit Status & Error Handling
+# 🐧 Day 11 - Exit Status & Error Handling
 
 ```md id="d12"
 # 🐚 Day 12 - Exit Status & Error Handling
@@ -103,7 +103,7 @@ Stops script if any command fails.
 
 ---
 
-# 🐧 Day 13 - Debugging Scripts
+# 🐧 Day 12 - Debugging Scripts
 
 ```md id="d13"
 # 🐚 Day 13 - Debugging Scripts
@@ -141,7 +141,7 @@ set +x
 
 ---
 
-# 🐧 Day 14 - Cron Jobs
+# 🐧 Day 13 - Cron Jobs
 
 ```md id="d14"
 # 🐚 Day 14 - Cron Jobs
@@ -188,7 +188,7 @@ crontab -l
 
 ---
 
-# 🐧 Day 15 - Logging in Scripts
+# 🐧 Day 14 - Logging in Scripts
 
 ```md id="d15"
 # 🐚 Day 15 - Logging in Scripts
